@@ -1,0 +1,7 @@
+wa-logs.txt
+.wwebjs_auth/
+.wwebjs_cache/
+auth/
+auth_info_bailey/
+auth_info_baileys/
+node_modules/
