@@ -53,7 +53,6 @@ export class CommandRegistry {
   }
 
   public async executeCommand(commandName: string, args: string[], message: proto.IWebMessageInfo): Promise<boolean> {
-    // Check if it's a direct command
     const command = this.commands.get(commandName);
     
     if (command) {
@@ -61,7 +60,6 @@ export class CommandRegistry {
       return true;
     }
     
-    // Check if it's an alias
     const aliasedCommand = this.aliases.get(commandName);
     if (aliasedCommand) {
       const cmd = this.commands.get(aliasedCommand);
