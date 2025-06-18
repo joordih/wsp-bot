@@ -46,6 +46,14 @@ const startSocket = async () => {
         console.log("Extended Text Message");
         console.log(message.message);
         await handleExtendedTextMessage(message);
+      } else if (message.message?.imageMessage) {
+        console.log("Image Message");
+        console.log(message.message);
+        await handleImageMessage(message);
+      } else if (message.message?.videoMessage) {
+        console.log("Video Message");
+        console.log(message.message);
+        await handleVideoMessage(message);
       }
     }
   });
@@ -68,6 +76,28 @@ const startSocket = async () => {
     }
 
     const [command, ...args] = text.split(" ");
+    console.log(message.message);
+    await executeCommand(command, args, message);
+  };
+
+  const handleImageMessage = async (message: proto.IWebMessageInfo) => {
+    const caption = message.message!.imageMessage!.caption;
+    if (!caption || !caption.startsWith("!")) {
+      return;
+    }
+
+    const [command, ...args] = caption.split(" ");
+    console.log(message.message);
+    await executeCommand(command, args, message);
+  };
+
+  const handleVideoMessage = async (message: proto.IWebMessageInfo) => {
+    const caption = message.message!.videoMessage!.caption;
+    if (!caption || !caption.startsWith("!")) {
+      return;
+    }
+
+    const [command, ...args] = caption.split(" ");
     console.log(message.message);
     await executeCommand(command, args, message);
   };
